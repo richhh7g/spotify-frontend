@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Container, Header, SongList } from './styles';
-
 import clockIcon from 'assets/svgs/clock.svg';
 import plusIcon from 'assets/svgs/plus.svg';
 import albumImg from 'assets/images/album.jpg';
@@ -20,7 +19,6 @@ export default function Playlist() {
           <button>PLAY</button>
         </div>
       </Header>
-
       <SongList cellPadding={0} cellSpacing={0}>
         <thead>
           <th />
@@ -33,42 +31,6 @@ export default function Playlist() {
         </thead>
 
         <tbody>
-          <tr>
-            <td>
-              <img src={plusIcon} alt="Add" draggable="false" />
-            </td>
-            <td>Lonely day</td>
-            <td>System of a Down</td>
-            <td>Toxity</td>
-            <td>03:21</td>
-          </tr>
-          <tr>
-            <td>
-              <img src={plusIcon} alt="Add" draggable="false" />
-            </td>
-            <td>Lonely day</td>
-            <td>System of a Down</td>
-            <td>Toxity</td>
-            <td>03:21</td>
-          </tr>
-          <tr>
-            <td>
-              <img src={plusIcon} alt="Add" draggable="false" />
-            </td>
-            <td>Lonely day</td>
-            <td>System of a Down</td>
-            <td>Toxity</td>
-            <td>03:21</td>
-          </tr>
-          <tr>
-            <td>
-              <img src={plusIcon} alt="Add" draggable="false" />
-            </td>
-            <td>Lonely day</td>
-            <td>System of a Down</td>
-            <td>Toxity</td>
-            <td>03:21</td>
-          </tr>
           <tr>
             <td>
               <img src={plusIcon} alt="Add" draggable="false" />

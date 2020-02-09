@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { Link } from 'react-router-dom';
+import { Spinner } from 'components/Loading/styles';
 
 export const Container = styled.div`
   display: flex;
@@ -13,27 +14,30 @@ export const Container = styled.div`
 export const Title = styled.span`
   font-size: 42px;
   font-weight: bold;
+
+  ${Spinner} {
+    height: 24px;
+
+    margin-left: 5px;
+  }
 `;
 
 export const List = styled.div`
-  display: flex;
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 55px;
+
+  margin: 20px 0;
 `;
 
 export const Playlist = styled(Link)`
-  width: 220px;
+  width: 250px;
 
   display: flex;
   flex-direction: column;
 
-  margin-left: 20px;
-
-  &:first-child {
-    margin: 0;
-  }
-
   img {
-    height: 220px;
+    height: 230px;
   }
 
   &:hover img {

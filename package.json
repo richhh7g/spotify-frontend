@@ -7,11 +7,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server server.json -p 3333 -d 1000"
+    "server": "json-server server.json -p 3333 -w -d 1000"
   },
   "dependencies": {
     "axios": "^0.19.0",
     "history": "^4.10.1",
+    "immer": "^5.2.1",
     "rc-slider": "^8.7.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -37,6 +38,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react-hooks": "^2.3.0",
     "json-server": "^0.15.1",
     "prettier": "^1.19.1"
   },

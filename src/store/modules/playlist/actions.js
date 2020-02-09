@@ -1,6 +1,12 @@
-export function addPlaylist(music) {
+export function playlistsGetRequest() {
   return {
-    type: '@playlist/ADD_SUCCESS',
-    music,
+    type: '@playlist/GET_REQUEST',
+  };
+}
+
+export function playlistsGetSuccess(playlistsData) {
+  return {
+    type: '@playlist/GET_SUCCESS',
+    payload: { playlistsData },
   };
 }

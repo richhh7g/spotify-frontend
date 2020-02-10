@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Loading from 'components/Loading';
 
 import { Container, Title, List, Playlist } from './styles';
-// import albumImg from 'assets/images/album.jpg';
 
 import { playlistsGetRequest } from 'store/modules/playlist/actions';
 

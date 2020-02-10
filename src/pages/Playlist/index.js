@@ -1,24 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import Loading from 'components/Loading';
+
+import api from 'services/api';
 
 import { Container, Header, SongList } from './styles';
+
 import clockIcon from 'assets/svgs/clock.svg';
 import plusIcon from 'assets/svgs/plus.svg';
-import albumImg from 'assets/images/album.jpg';
 
-export default function Playlist() {
-  return (
+export default function Playlist({ match }) {
+  const { id } = match.params;
+
+  const [loading, setLoading] = useState(false);
+  const [playlist, setPlaylist] = useState({});
+
+  useEffect(() => {
+    async function loadPlaylistSongs() {
+      setLoading(true);
+      const playlistSongs = await api.get(`/playlists/${id}?_embed=songs`);
+
+      setPlaylist(playlistSongs.data);
+      setLoading(false);
+    }
+
+    loadPlaylistSongs();
+  }, [id]);
+
+  return loading ? (
+    <Container loading>
+      <Loading />
+    </Container>
+  ) : (
     <Container>
       <Header>
-        <img src={albumImg} alt="Playlist" draggable="false" />
+        <img src={playlist.tumbnail} alt={playlist.title} draggable="false" />
 
         <div>
           <span>PLAYLIST</span>
-          <h1>Lonely day</h1>
-          <p>13 musicas</p>
+          <h1>{playlist.title}</h1>
+          <p>{playlist.songs && playlist.songs.length} musicas</p>
 
           <button>PLAY</button>
         </div>
       </Header>
+
       <SongList cellPadding={0} cellSpacing={0}>
         <thead>
           <th />
@@ -29,18 +55,27 @@ export default function Playlist() {
             <img src={clockIcon} alt="Duration" draggable="false" />
           </th>
         </thead>
-
-        <tbody>
+        {!playlist.songs ? (
           <tr>
-            <td>
-              <img src={plusIcon} alt="Add" draggable="false" />
+            <td colSpan={5}>
+              <h1>Você ainda não tem nenhuma musica</h1>
             </td>
-            <td>Lonely day</td>
-            <td>System of a Down</td>
-            <td>Toxity</td>
-            <td>03:21</td>
           </tr>
-        </tbody>
+        ) : (
+          playlist.songs.map(song => (
+            <tbody>
+              <tr>
+                <td>
+                  <img src={plusIcon} alt="Add" draggable="false" />
+                </td>
+                <td>{song.title}</td>
+                <td>{song.author}</td>
+                <td>{song.album}</td>
+                <td>03:21</td>
+              </tr>
+            </tbody>
+          ))
+        )}
       </SongList>
     </Container>
   );

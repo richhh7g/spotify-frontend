@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import Loading from 'components/Loading';
 
@@ -17,11 +18,18 @@ export default function Playlist({ match }) {
 
   useEffect(() => {
     async function loadPlaylistSongs() {
-      setLoading(true);
-      const playlistSongs = await api.get(`/playlists/${id}?_embed=songs`);
+      try {
+        setLoading(true);
+        const playlistSongs = await api.get(`/playlists/${id}?_embed=songs`);
 
-      setPlaylist(playlistSongs.data);
-      setLoading(false);
+        setPlaylist(playlistSongs.data);
+        setLoading(false);
+      } catch (err) {
+        if (err.message === 'Network Error') {
+          return toast.error('Sem conexão com a internet');
+        }
+        return toast.error('Ops! algo deu errado');
+      }
     }
 
     loadPlaylistSongs();

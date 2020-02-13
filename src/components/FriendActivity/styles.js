@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  min-height: 590px;
+  height: auto;
   width: 260px;
 
   display: flex;
@@ -121,8 +121,6 @@ export const FriendCard = styled.li`
 
     span {
       width: 100%;
-
-      /* padding-bottom: 5px; */
 
       overflow: hidden;
       white-space: nowrap;

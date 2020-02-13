@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+
+import { playerLoadSong } from 'store/modules/player/actions';
 
 import Loading from 'components/Loading';
 
 import api from 'services/api';
 
-import { Container, Header, SongList } from './styles';
+import { Container, Header, SongList, SongItem } from './styles';
 
 import clockIcon from 'assets/svgs/clock.svg';
 import plusIcon from 'assets/svgs/plus.svg';
@@ -13,8 +16,13 @@ import plusIcon from 'assets/svgs/plus.svg';
 export default function Playlist({ match }) {
   const { id } = match.params;
 
+  const player = useSelector(state => state.player);
+
   const [loading, setLoading] = useState(false);
   const [playlist, setPlaylist] = useState({});
+  const [selectedSong, setSelectedSong] = useState(null);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function loadPlaylistSongs() {
@@ -49,7 +57,13 @@ export default function Playlist({ match }) {
           <h1>{playlist.title}</h1>
           <p>{playlist.songs && playlist.songs.length} musicas</p>
 
-          <button>PLAY</button>
+          <button
+            onClick={() =>
+              dispatch(playerLoadSong(playlist.songs[0], playlist.songs))
+            }
+          >
+            PLAY
+          </button>
         </div>
       </Header>
 
@@ -63,16 +77,23 @@ export default function Playlist({ match }) {
             <img src={clockIcon} alt="Duration" draggable="false" />
           </th>
         </thead>
-        {!playlist.songs ? (
-          <tr>
-            <td colSpan={5}>
-              <h1>Você ainda não tem nenhuma musica</h1>
-            </td>
-          </tr>
-        ) : (
-          playlist.songs.map(song => (
-            <tbody>
-              <tr>
+        <tbody>
+          {!playlist.songs ? (
+            <SongItem>
+              <td colSpan={5}>Você ainda não tem nenhuma musica</td>
+            </SongItem>
+          ) : (
+            playlist.songs.map(song => (
+              <SongItem
+                selected={song.id === selectedSong}
+                playing={
+                  player.currentSong && player.currentSong.id === song.id
+                }
+                onClick={() => setSelectedSong(song.id)}
+                onDoubleClick={() =>
+                  dispatch(playerLoadSong(song, playlist.songs))
+                }
+              >
                 <td>
                   <img src={plusIcon} alt="Add" draggable="false" />
                 </td>
@@ -80,10 +101,10 @@ export default function Playlist({ match }) {
                 <td>{song.author}</td>
                 <td>{song.album}</td>
                 <td>03:21</td>
-              </tr>
-            </tbody>
-          ))
-        )}
+              </SongItem>
+            ))
+          )}
+        </tbody>
       </SongList>
     </Container>
   );

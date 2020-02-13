@@ -13,9 +13,9 @@ export const Container = styled.div`
   padding: 12px;
 `;
 
-// -----------------Current----------------- //
-
 export const Current = styled.div`
+  width: 220px;
+
   display: flex;
   align-items: center;
 
@@ -40,8 +40,6 @@ export const Current = styled.div`
     }
   }
 `;
-
-// -----------------Playing----------------- //
 
 export const Playing = styled.div`
   display: flex;
@@ -68,6 +66,7 @@ export const BarControll = styled.div`
   justify-content: space-between;
 
   small {
+    width: 30px;
     margin: 0 15px;
     letter-spacing: 0.5;
   }
@@ -77,8 +76,6 @@ export const ProgressSlider = styled.div`
   width: 420px;
   user-select: none;
 `;
-
-// -----------------ControlBar----------------- //
 
 export const ControlBar = styled.div`
   width: 200px;
@@ -100,6 +97,7 @@ export const Volume = styled.div`
   align-items: center;
 
   img {
+    height: 16.5px;
     margin-right: 15px;
   }
 `;
